@@ -27,13 +27,14 @@ exports.getUsers = function(req, res) {
 });
 }
 
+var sess;
 exports.login = function(req, res) {
-
-  if(req.method.toLowerCase() != "post") {
+  sess = req.session;
+  if(req.method.toLowerCase() != "post" && !req.session.user )  {
     res.render("login.ejs", {layout: false});
   }
   else {
-    user.findOne({email: req.body.email}, function(err, result) {
+   users = user.findOne({email: req.body.uname}, function(err, result) {
        if(err) console.log(err);
 
          if(result == null) {
@@ -47,14 +48,16 @@ exports.login = function(req, res) {
     });
 
     function auth( userRes ) {
-      if(!UserModel.encrypt(req.body.psw) == userRes.password) {
+      if(UserModel.encrypt(req.body.psw) != userRes.password) {
          res.send('invalid password', 
 		  {'Content-type' : 'text/plain'}, 
                   403);
       } else {
-         console.log(userRes._id);
+         // console.log(userRes._id);
+         req.session.user = userRes;
          user.update({_id : userRes._id}, {'$set' : {token : Date.now}});
-         res.send(userRes);
+         // res.send(userRes);
+         res.redirect("index");
       }
     }
   }
