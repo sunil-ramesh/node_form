@@ -1,0 +1,6 @@
+# Logfile created on 2017-10-24 15:06:16 +0530 by logger.rb/56815
+  INFO ---------------------------------------------------------------------------
+  INFO START 2017-10-24 15:06:16 +0530 cap production deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [6daf7230] Running /usr/bin/env mkdir -p /tmp as deploy@34.231.242.45
+ DEBUG [6daf7230] Command: /usr/bin/env mkdir -p /tmp
